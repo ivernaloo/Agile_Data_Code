@@ -2,7 +2,7 @@
 from avro import schema, datafile, io
 import pprint
 
-OUTFILE_NAME = '/tmp/messages.avro'
+OUTFILE_NAME = 'tmp/messages.avro'
 # Test reading avros
 rec_reader = io.DatumReader()
 

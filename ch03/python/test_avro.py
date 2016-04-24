@@ -7,7 +7,7 @@ from avro import schema, datafile, io
 import pprint
 
 # Test writing avros
-OUTFILE_NAME = '/tmp/messages.avro'
+OUTFILE_NAME = 'tmp/messages.avro'
 
 SCHEMA_STR = """{
     "type": "record",
