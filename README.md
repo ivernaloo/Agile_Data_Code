@@ -4,12 +4,13 @@
 书可以在这买 [here](http://shop.oreilly.com/product/0636920025054.do). 现在的问题，第二版都出来了，第一版虽然有中文版但是好多demo跑不通额。
  Don't forget to initialize your python environment. Try linux (apt-get, yum) or OS X (brew, port) packages if any of the requirements don't install in your [virtualenv](http://www.virtualenv.org/en/latest/).
 
-Agile Data Code Examples
+敏捷数据代码实例
 ========================
 
 Setup your Python Virtual Environment
 -------------------------------------
 
+这里通过vitrualenv可以配置好需要的python版本?通过requirement文件？
 ```
 # From project root
 
