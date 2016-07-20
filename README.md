@@ -1,16 +1,19 @@
-<<Ãô½İÊı¾İ>> Review±Ê¼Ç
-===================
+# <<æ•æ·æ•°æ®>>
 
-Êé¿ÉÒÔÔÚÕâÂò [here](http://shop.oreilly.com/product/0636920025054.do). ÏÖÔÚµÄÎÊÌâ£¬µÚ¶ş°æ¶¼³öÀ´ÁË£¬µÚÒ»°æËäÈ»ÓĞÖĞÎÄ°æµ«ÊÇºÃ¶àdemoÅÜ²»Í¨¶î¡£
- Don't forget to initialize your python environment. Try linux (apt-get, yum) or OS X (brew, port) packages if any of the requirements don't install in your [virtualenv](http://www.virtualenv.org/en/latest/).
+ä¹¦å¯ä»¥åœ¨è¿™ä¹° [here](http://shop.oreilly.com/product/0636920025054.do)ã€‚ ç°åœ¨çš„é—®é¢˜ï¼Œç¬¬äºŒç‰ˆéƒ½å‡ºæ¥äº†ï¼Œç¬¬ä¸€ç‰ˆè™½ç„¶æœ‰ä¸­æ–‡ç‰ˆä½†æ˜¯å¥½å¤šdemoè·‘ä¸é€šé¢ã€‚ 
 
-Ãô½İÊı¾İ´úÂëÊµÀı
-========================
+
+Don't forget to initialize your python environment. Try linux (apt-get, yum) or OS X (brew, port) packages if any of the requirements don't install in your virtualenv.
+
+æ•æ·æ•°æ®ä»£ç å®ä¾‹
+
 
 Setup your Python Virtual Environment
 -------------------------------------
 
-ÕâÀïÍ¨¹ıvitrualenv¿ÉÒÔÅäÖÃºÃĞèÒªµÄpython°æ±¾?Í¨¹ırequirementÎÄ¼ş£¿
+è¿™é‡Œé€šè¿‡vitrualenvå¯ä»¥é…ç½®å¥½éœ€è¦çš„pythonç‰ˆæœ¬?é€šè¿‡requirementæ–‡ä»¶ï¼Ÿ
+
+
 ```
 # From project root
 
