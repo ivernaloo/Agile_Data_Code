@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#coding:utf-8
 
 # This is a command line utility for slurping emails from gmail and storing them as avro documents.
 # I uses the GmailSlurper class, which in turn uses email utils.
@@ -20,7 +21,7 @@ def does_exist(path_string, name):
 
 def main():
   try:
-    opts, args = getopt.getopt(sys.argv[1:], 'm:u:p:s:f:o:i:')
+    opts, args = getopt.getopt(sys.argv[1:], 'm:u:p:s:f:o:i:') # 拿到参数
   except getopt.GetoptError, err:
     # print help information and exit:
     print "Error:" + str(err) # will print something like "option -a not recognized"
@@ -34,8 +35,9 @@ def main():
   imap_folder = None #'[Gmail]/All Mail'
   output_path = None
   single_id = None
-  arg_check = dict()
-  
+  arg_check = dict() # mapping object
+
+  # 处理传入的参数
   for o, a in opts:
     if o == "-m":
       mode = a
@@ -67,6 +69,7 @@ def main():
     else:
       assert False, "unhandled option"
 
+  # dict.keys() 获取dict的keys
   if(len(arg_check.keys()) >= 6):
     pass
   else:
@@ -80,10 +83,10 @@ def main():
     sys.exit(2)
   
   slurper = GmailSlurper()
-  slurper.init_avro(output_path, 1, schema_path)
-  slurper.init_imap(username, password)
-  status, count = slurper.init_folder(imap_folder)
-  if(status == 'OK'):
+  slurper.init_avro(output_path, 1, schema_path) # 初始化avro
+  slurper.init_imap(username, password) # 初始化imap
+  status, count = slurper.init_folder(imap_folder) # 初始化目录
+  if(status == 'OK'): # init folder的返回值
     if(mode == 'automatic'):
       # Grab a single message if its ID is specified - useful for debug
       if(single_id):
