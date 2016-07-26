@@ -131,10 +131,11 @@ def slurp(imap, folder, ids, writer, writertmp):
       (status, email_hash, charset) = fetch_email(imap, email_id)
 
       if(status == 'OK' and charset and 'thread_id' in email_hash and 'from' in email_hash):
+        print "***********slurp write*****"
         print email_id, charset, email_hash['thread_id']
         write(email_hash, writer, writertmp)
         if((int(email_id) % 1000) == 0):
-          flush()
+          flush(writer, writertmp);
       elif(status == 'ERROR' or status == 'PARSE' or status == 'UNICODE' or status == 'CHARSET' or status =='FROM'):
         sys.stderr.write("Problem fetching email id " + str(email_id) + ": " + status + "\n")
         continue
@@ -166,9 +167,9 @@ def write(record, writer, writertmp):
   # END - Handle errors when writing into Avro storage
   print "*******************write end**************************"
 
-def flush():
-  avro_writer.flush()
-  avro_writertmp.flush()	# Handle Avro write errors
+def flush(writer, writertmp):
+  writer.flush()
+  writertmp.flush()	# Handle Avro write errors
   print "Flushed avro writer..."
 
 def fetch_email(imap, email_id):
@@ -185,10 +186,9 @@ def fetch_email(imap, email_id):
 
   try:
     status, data = imap.fetch(str(email_id), '(X-GM-THRID RFC822)') # Gmail's X-GM-THRID will get the thread of the message
-  except TimeoutException:
-    return 'TIMEOUT', {}, None
-  except:
-    return 'ABORT', {}, None
+  except Exception, e:
+    print Exception, " : ", e
+  # OK no problem
 
   charset = None
   if status != 'OK':
@@ -211,19 +211,20 @@ def fetch_email(imap, email_id):
       thread_id = utils.get_thread_id(raw_thread_id)
     #   print "CHARSET: " + charset
       avro_record, charset = utils.process_email(encoded_email, thread_id)
+    # OK
+
     else:
       return 'UNICODE', {}, charset
-  except UnicodeDecodeError:
-    return 'UNICODE', {}, charset
-  except:
-    return 'ERROR', {}, None
+  except Exception, e:
+    print Exception + " : " + e
 
   # Without a charset we pass bad chars to avro, and it dies. See AVRO-565.
   if charset:
+    print "*******************fetch_email end**************************"
     return status, avro_record, charset
   else:
     return 'CHARSET', {}, charset
-  print "*******************fetch_email end**************************"
+
 
 if __name__ == "__main__":
   main()
