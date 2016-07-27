@@ -7,10 +7,10 @@ REGISTER $HOME/pig/contrib/piggybank/java/piggybank.jar
 
 DEFINE AvroStorage org.apache.pig.piggybank.storage.avro.AvroStorage();
 
-rmf /tmp/sent_counts.txt
+rmf tmp/sent_counts.txt
 
 /* Load the emails in avro format (edit the path to match where you saved them) using the AvroStorage UDF from Piggybank */
-messages = LOAD '/me/Data/test_mbox' USING AvroStorage();
+messages = LOAD 'gmail_mbox' USING AvroStorage();
 
 /* Filter nulls, they won't help */
 messages = FILTER messages BY (from IS NOT NULL) AND (tos IS NOT NULL);
@@ -29,4 +29,4 @@ sent_counts = FOREACH by_from_to GENERATE FLATTEN(group) AS (from, to), COUNT_ST
 
 /* Sort the data, highest sent count first */
 sent_counts = ORDER sent_counts BY total DESC;
-STORE sent_counts INTO '/tmp/sent_counts.txt';
+STORE sent_counts INTO 'tmp/sent_counts.txt';
