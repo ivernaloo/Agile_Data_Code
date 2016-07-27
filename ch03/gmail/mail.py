@@ -111,7 +111,7 @@ def init_avro(output_path, part_id, schema_path):
 
   rec_writer = io.DatumWriter(email_schema)
   avro_writer = datafile.DataFileWriter(
-    open(out_filename, 'a+b'),
+    open(out_filename, 'wb'),
     rec_writer,
     email_schema
   )
@@ -132,18 +132,24 @@ def slurp(imap, folder, ids, writer, writertmp):
 
       if(status == 'OK' and charset and 'thread_id' in email_hash and 'from' in email_hash):
         print "***********slurp write*****"
-        print email_id, charset, email_hash['thread_id']
+        print "***slurp write***" ,email_id, charset, email_hash['thread_id'], int(email_id) % 1750
         write(email_hash, writer, writertmp)
-        if((int(email_id) % 1000) == 0):
-          flush(writer, writertmp);
+        if((int(email_id) % 1750) == 0):
+          print "**********flush*****"
+          flush(writer, writertmp)
+          return False
       elif(status == 'ERROR' or status == 'PARSE' or status == 'UNICODE' or status == 'CHARSET' or status =='FROM'):
+        print "else 1"
         sys.stderr.write("Problem fetching email id " + str(email_id) + ": " + status + "\n")
+
         continue
       elif (status == 'ABORT' or status == 'TIMEOUT'):
+        print "else 2"
         sys.stderr.write("resetting imap for " + status + "\n")
-        stat, c = self.reset()
+        stat, c = reset()
         sys.stderr.write("IMAP RESET: " + str(stat) + " " + str(c) + "\n")
       else:
+        print "else 3"
         sys.stderr.write("ERROR IN PARSING EMAIL, SKIPPED ONE\n")
         continue
   print "*******************slurp end**************************"
@@ -153,7 +159,6 @@ def write(record, writer, writertmp):
   #self.avro_writer.append(record)
   # BEGIN - Handle errors when writing into Avro storage
   try:
-      print record
       writer.append(record)
       writertmp.append(record)
 
