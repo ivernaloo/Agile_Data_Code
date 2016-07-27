@@ -2,8 +2,7 @@
 #coding:utf-8
 
 import imaplib
-import re
-from pprint import pprint
+import re from pprint import pprint
 list_response_pattern = re.compile(r'\((?P<flags>.*?)\) "(?P<delimiter>.*)" (?P<name>.*)')
 
 #imaplib.Debug = 4 #设置debug模式

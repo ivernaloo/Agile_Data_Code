@@ -35,7 +35,7 @@ def main():
   password = None
   schema_path = './email.avro.schema' #'../avro/email.schema'
   imap_folder = None #'[Gmail]/All Mail'
-  output_path = 'test_mbox'
+  output_path = 'gmail_mbox'
   single_id = None
   arg_check = dict() # mapping object
 
